@@ -121,26 +121,40 @@ export default function PopularDestinations() {
         Popular flight destinations
       </Typography>
 
-    <Swiper
-  spaceBetween={16}
-  slidesPerView={1.2} // better default for mobile
-  onSwiper={(swiper) => (swiperRef.current = swiper)}
-  onSlideChange={(swiper) => {
-    setIsBeginning(swiper.isBeginning);
-    setIsEnd(swiper.isEnd);
-  }}
-  navigation={false}
-  modules={[Navigation]}
-  breakpoints={{
-    480: { slidesPerView: 2 },   // small phones
-    640: { slidesPerView: 3 },   // tablets
-    768: { slidesPerView: 4 },   // small laptops
-    1024: { slidesPerView: 6 },  // desktops
-    1280: { slidesPerView: 7 },  // big screens
-  }}
-  grabCursor={true}
-/>
-
+      <Swiper
+        spaceBetween={16}
+        slidesPerView={2}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        onSlideChange={(swiper) => {
+          setIsBeginning(swiper.isBeginning);
+          setIsEnd(swiper.isEnd);
+        }}
+        navigation={false} // disable default buttons
+        modules={[Navigation]}
+        breakpoints={{
+          640: { slidesPerView: 3 },
+          1024: { slidesPerView: 7 },
+        }}
+        grabCursor={true} // ✅ enables grab cursor for swipe on desktop
+      >
+        {destinations.map((d) => (
+          <SwiperSlide key={d.name}>
+            <Box className="relative rounded-xl overflow-hidden">
+              <a href={d.url}>
+                <img
+                  src={d.image}
+                  alt={d.name}
+                  className="w-full h-28 object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30"></div>
+                <Typography className="absolute bottom-2 left-2 text-white font-semibold drop-shadow-lg">
+                  {d.name}
+                </Typography>
+              </a>
+            </Box>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       {/* Custom Left Button */}
       {!isBeginning && (

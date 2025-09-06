@@ -23,7 +23,7 @@ function App() {
          <div className="max-w-[992px] flex flex-col gap-14">
 
           <PopularFlights />
-          {/* <PopularFlightDestinations /> */}
+          <PopularFlightDestinations />
           <Faqs />
           <UseFullLinks />
       </div>
